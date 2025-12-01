@@ -9,6 +9,7 @@ export default function RegisterProvider() {
     location: "",
     phone: "",
     description: "",
+    rating: "", // new rating field
   });
 
   const handleSubmit = async (e) => {
@@ -17,6 +18,7 @@ export default function RegisterProvider() {
       await API.post("/providers/register", {
         ...form,
         price: Number(form.price),
+        rating: form.rating ? Number(form.rating) : 0, // default 0 if empty
       });
       alert("Registered Successfully!");
       setForm({
@@ -26,6 +28,7 @@ export default function RegisterProvider() {
         location: "",
         phone: "",
         description: "",
+        rating: "",
       });
     } catch (err) {
       console.error(err);
@@ -33,83 +36,47 @@ export default function RegisterProvider() {
     }
   };
 
-  const inputStyle = {
-    padding: "8px",
-    borderRadius: "4px",
-    border: "1px solid #d1d5db",
-    marginBottom: "8px",
-  };
-
   return (
-    <div style={{ maxWidth: "600px", margin: "24px auto" }}>
-      <h1 style={{ fontSize: "24px", marginBottom: "16px" }}>
-        Register as Service Provider
-      </h1>
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+      <div className="bg-gray-800 p-10 rounded-2xl shadow-lg w-full max-w-md hover:shadow-[0_0_20px_#10b981] transition-all">
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">Register as Provider</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <input
-          style={inputStyle}
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          {["name", "serviceType", "price", "location", "phone"].map((field) => (
+            <input
+              key={field}
+              type={field === "price" ? "number" : "text"}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              value={form[field]}
+              onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+              className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+            />
+          ))}
 
-        <input
-          style={inputStyle}
-          placeholder="Service Type"
-          value={form.serviceType}
-          onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
-        />
+          {/* Rating Input */}
+          <input
+            type="number"
+            min="0"
+            max="5"
+            step="0.1"
+            placeholder="Rating (0-5)"
+            value={form.rating}
+            onChange={(e) => setForm({ ...form, rating: e.target.value })}
+            className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
 
-        <input
-          style={inputStyle}
-          type="number"
-          placeholder="Price"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
-        />
+          <textarea
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            className="p-3 border border-gray-600 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-green-400 min-h-[100px]"
+          />
 
-        <input
-          style={inputStyle}
-          placeholder="Location"
-          value={form.location}
-          onChange={(e) => setForm({ ...form, location: e.target.value })}
-        />
-
-        <input
-          style={inputStyle}
-          placeholder="Phone"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        />
-
-        <textarea
-          style={{ ...inputStyle, minHeight: "80px" }}
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
-          }
-        />
-
-        <button
-          type="submit"
-          style={{
-            marginTop: "8px",
-            padding: "10px 16px",
-            backgroundColor: "#16a34a",
-            color: "white",
-            borderRadius: "4px",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Submit
-        </button>
-      </form>
+          <button className="bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-medium transition-all shadow-md hover:shadow-[0_0_15px_#10b981]">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

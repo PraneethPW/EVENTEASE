@@ -2,49 +2,16 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav style={{ backgroundColor: "#111827", padding: "12px 0", color: "white" }}>
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Link to="/" style={{ color: "white", textDecoration: "none", fontWeight: "bold", fontSize: "20px" }}>
+    <nav className="bg-gray-900 text-white py-3 shadow-lg">
+      <div className="max-w-6xl mx-auto flex justify-between items-center px-4">
+        <Link to="/" className="font-bold text-2xl hover:text-blue-400 transition-colors">
           EventEase
         </Link>
 
-        <div>
-          <Link
-            to="/"
-            style={{ color: "white", marginRight: "20px", textDecoration: "none" }}
-          >
-            Home
-          </Link>
-
-          <Link
-            to="/providers"
-            style={{ color: "white", marginRight: "20px", textDecoration: "none" }}
-          >
-            Providers
-          </Link>
-
-          <Link
-            to="/register-provider"
-            style={{ color: "white", marginRight: "20px", textDecoration: "none" }}
-          >
-            Register
-          </Link>
-
-          {/* <a
-            href="https://wa.me/91XXXXXXXXXX?text=Hi%20I%20need%20a%20service"
-            style={{ color: "white", textDecoration: "none" }}
-            target="_blank"
-          >
-            Contact
-          </a> */}
+        <div className="space-x-6">
+          <Link to="/" className="hover:text-blue-400 transition-colors">Home</Link>
+          <Link to="/providers" className="hover:text-blue-400 transition-colors">Providers</Link>
+          <Link to="/register-provider" className="hover:text-green-400 transition-colors">Register</Link>
         </div>
       </div>
     </nav>
