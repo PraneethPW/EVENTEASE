@@ -8,12 +8,12 @@ export default function ProviderDetails() {
   const [booking, setBooking] = useState({ userName: "", userPhone: "", eventDate: "" });
 
   useEffect(() => {
-    API.get(`/providers/${id}`).then((res) => setProvider(res.data));
+    API.get(`/api/providers/${id}`).then((res) => setProvider(res.data));
   }, [id]);
 
   const handleBooking = async () => {
     try {
-      await API.post("/bookings/book", { ...booking, providerId: id, status: "pending" });
+      await API.post("/api//bookings/book", { ...booking, providerId: id, status: "pending" });
       alert("Booking Successful!");
       setBooking({ userName: "", userPhone: "", eventDate: "" });
     } catch (err) {

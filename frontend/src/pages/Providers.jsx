@@ -6,7 +6,7 @@ export default function Providers() {
   const [providers, setProviders] = useState([]);
 
   useEffect(() => {
-    API.get("/providers")
+    API.get("/api/providers")
       .then((res) => setProviders(res.data))
       .catch(() => console.log("Error fetching providers"));
   }, []);
