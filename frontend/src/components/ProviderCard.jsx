@@ -10,7 +10,7 @@ export default function ProviderCard({ provider }) {
       <p className="text-yellow-400 font-medium mb-3">⭐ <strong>Rating:</strong> {provider.rating || "Not Rated"}</p>
 
       <Link
-        to={`/providers/${provider._id}`}
+        to={`/provider/${provider._id}`}
         className="bg-blue-600 hover:bg-blue-500 text-white rounded-md py-2 text-center font-medium transition-colors"
       >
         View Details
