@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL ||  "eventease-production-9ab0.up.railway.app/api",
+  baseURL: import.meta.env.VITE_BACKEND_URL ||  "eventease-production-9ab0.up.railway.app",
 });
 
 export default API;
